@@ -11,12 +11,18 @@ namespace KSQL.Scripts
 {
     public class Database : ITransmitter
     {
+        private DataReader reader;
+        private List<string> tablesName;
         private DatabaseLoader loader;
         private List<IReciever> receivers;
         private string databaseName;
         private SQLiteConnection connection;
         private SQLiteCommand command;
         private string currentStatus;
+        public string ReturnTableName(int index)
+        {
+            return tablesName[index];
+        }
         public string GetDatabaseName()
         {
             return databaseName;
@@ -25,6 +31,8 @@ namespace KSQL.Scripts
         {
             databaseName = loader.Load();
             DatabaseInitialize();
+            reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection));
+            tablesName = reader.Read();
         }
         public SQLiteConnection GetConnection()
         {

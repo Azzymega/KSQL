@@ -16,7 +16,7 @@ namespace KSQL.Scripts
         {
             this.openDialog = openDialog;
             openDialog.Title = "Загрузка базы SQLite";
-            openDialog.Filter = "Файлы баз данных SQLite (*.sqlite)|*.sqlite";
+            openDialog.Filter = "Файлы баз данных SQLite (*.db)|*.db";
             this.saveDialog = saveDialog;
         }
         public string Load()

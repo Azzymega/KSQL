@@ -10,10 +10,10 @@ namespace KSQL.Scripts
 {
     public class SQLDatabaseAdapterDataSet
     {
-        private const string query = "SELECT * FROM sqlite_master"; // ПРАВИТЬ!!!1
         private Database sqlDataBase;
         private DataTable compDataBase;
         private SQLiteDataAdapter adapter;
+        private string query = "SELECT * FROM "; // ПРАВИТЬ!!!1 Сделать уже нормальный конструктор запросов
         public DataTable ReturnDataTable()
         {
             return compDataBase;
@@ -22,11 +22,10 @@ namespace KSQL.Scripts
         {
             sqlDataBase = database;
             compDataBase = dataTable;
-            adapter = new SQLiteDataAdapter(query,sqlDataBase.GetConnection());
         }
         public void UpdateConnection()
         {
-            adapter = new SQLiteDataAdapter(query, sqlDataBase.GetConnection());
+            adapter = new SQLiteDataAdapter("SELECT * FROM " + sqlDataBase.ReturnTableName(0), sqlDataBase.GetConnection());
         }
         public void Convert()
         {
