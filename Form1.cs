@@ -29,9 +29,18 @@ namespace KSQL
         private void Form1_Load(object sender, EventArgs e)
         {
             table = new DataTable();
-            database = new Database();
-            database.DatabaseInitialize();
+            database = new Database(openFileDialog1,saveFileDialog1);
             adapter = new SQLDatabaseAdapterDataSet(database,table);
+        }
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            database.LoadDatabase();
+            adapter.UpdateConnection();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = database.GetDatabaseName();
         }
     }
 }

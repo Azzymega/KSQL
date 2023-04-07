@@ -10,7 +10,7 @@ namespace KSQL.Scripts
 {
     public class SQLDatabaseAdapterDataSet
     {
-        private const string query = "SELECT * FROM Catalog";
+        private const string query = "SELECT * FROM sqlite_master"; // ПРАВИТЬ!!!1
         private Database sqlDataBase;
         private DataTable compDataBase;
         private SQLiteDataAdapter adapter;
@@ -23,6 +23,10 @@ namespace KSQL.Scripts
             sqlDataBase = database;
             compDataBase = dataTable;
             adapter = new SQLiteDataAdapter(query,sqlDataBase.GetConnection());
+        }
+        public void UpdateConnection()
+        {
+            adapter = new SQLiteDataAdapter(query, sqlDataBase.GetConnection());
         }
         public void Convert()
         {

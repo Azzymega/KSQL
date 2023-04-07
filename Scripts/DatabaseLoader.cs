@@ -15,11 +15,17 @@ namespace KSQL.Scripts
         public DatabaseLoader(OpenFileDialog openDialog, SaveFileDialog saveDialog)
         {
             this.openDialog = openDialog;
+            openDialog.Title = "Загрузка базы SQLite";
+            openDialog.Filter = "Файлы баз данных SQLite (*.sqlite)|*.sqlite";
             this.saveDialog = saveDialog;
         }
-        public void Load()
+        public string Load()
         {
-            saveDialog.ShowDialog();
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                return openDialog.FileName;
+            }
+            return null;
         }
     }
 }
