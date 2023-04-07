@@ -75,6 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Database.cs" />
+    <Compile Include="Scripts\DatabaseLoader.cs" />
     <Compile Include="Scripts\IReciever.cs" />
     <Compile Include="Scripts\ITransmitter.cs" />
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
