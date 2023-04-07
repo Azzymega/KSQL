@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Data;
 
 namespace KSQL.Scripts
 {
@@ -38,7 +39,7 @@ namespace KSQL.Scripts
             try
             {
                 SQLiteConnection.CreateFile(databaseName);
-                connection = new SQLiteConnection("Data Source"+databaseName+";Version=3;");
+                connection = new SQLiteConnection("Data Source="+databaseName+";Version=3;");
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "CREATE TABLE IF NOT EXISTS Catalog (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, book TEXT)"; // Тест плагина
