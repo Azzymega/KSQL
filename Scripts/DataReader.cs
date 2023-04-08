@@ -12,7 +12,14 @@ namespace KSQL.Scripts
         SQLiteDataReader reader;
         public DataReader(SQLiteCommand command)
         {
-            reader = command.ExecuteReader();
+            try
+            {
+                reader = command.ExecuteReader();
+            }
+            catch
+            {
+
+            }
         }
         public List<string> Read()
         {

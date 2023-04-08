@@ -14,7 +14,6 @@ namespace KSQL
 {
     public partial class Form1 : Form
     {
-        DataTable table;
         Database database;
         SQLDatabaseAdapterDataSet adapter;
         public Form1()
@@ -28,9 +27,9 @@ namespace KSQL
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            table = new DataTable();
             database = new Database(openFileDialog1,saveFileDialog1);
-            adapter = new SQLDatabaseAdapterDataSet(database,table);
+            adapter = new SQLDatabaseAdapterDataSet(database);
+            database.AppendReceiver(new StatusBarStatusController(toolStripLabel1));
         }
         private void toolStripButton2_Click(object sender, EventArgs e)
         {

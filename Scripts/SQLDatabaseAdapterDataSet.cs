@@ -17,10 +17,10 @@ namespace KSQL.Scripts
         {
             return sqlDataBase.data.ReturnTable();
         }
-        public SQLDatabaseAdapterDataSet(Database database, DataTable dataTable)
+        public SQLDatabaseAdapterDataSet(Database database)
         {
             sqlDataBase = database;
-            sqlDataBase.data.SetTable(dataTable);
+            sqlDataBase.data.SetTable(new DataTable());
         }
         public void UpdateConnection()
         {

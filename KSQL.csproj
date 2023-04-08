@@ -82,6 +82,7 @@
     <Compile Include="Scripts\IReciever.cs" />
     <Compile Include="Scripts\ITransmitter.cs" />
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
+    <Compile Include="Scripts\StatusBarStatusController.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
