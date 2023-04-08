@@ -42,5 +42,10 @@ namespace KSQL
         {
 
         }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            database.SaveDatabase();
+        }
     }
 }

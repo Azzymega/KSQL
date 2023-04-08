@@ -27,6 +27,12 @@ namespace KSQL.Scripts
         {
             return databaseName;
         }
+        public void SaveDatabase()
+        {
+            SQLiteConnection saveStream = new SQLiteConnection("Data Source=" + loader.Save() + "; Version=3;");
+            saveStream.Open();
+            connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
+        }
         public void LoadDatabase()
         {
             databaseName = loader.Load();

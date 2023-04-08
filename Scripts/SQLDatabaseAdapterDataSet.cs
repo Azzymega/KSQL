@@ -13,7 +13,7 @@ namespace KSQL.Scripts
         private Database sqlDataBase;
         private DataTable compDataBase;
         private SQLiteDataAdapter adapter;
-        private string query = "SELECT * FROM "; // ПРАВИТЬ!!!1 Сделать уже нормальный конструктор запросов
+        // private string query = "SELECT * FROM "; // ПРАВИТЬ!!!1 Сделать уже нормальный конструктор запросов 
         public DataTable ReturnDataTable()
         {
             return compDataBase;
@@ -29,6 +29,7 @@ namespace KSQL.Scripts
         }
         public void Convert()
         {
+            compDataBase.Clear();
             adapter.Fill(compDataBase);
         }
     }
