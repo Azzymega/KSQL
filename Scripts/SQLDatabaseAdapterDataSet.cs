@@ -28,8 +28,15 @@ namespace KSQL.Scripts
         }
         public void Convert()
         {
-            sqlDataBase.data.ReturnTable().Clear();
-            adapter.Fill(sqlDataBase.data.ReturnTable());
+            try
+            {
+                sqlDataBase.data.ReturnTable().Clear();
+                adapter.Fill(sqlDataBase.data.ReturnTable());
+            }
+            catch
+            {
+                sqlDataBase.ChangeStatus(EStatus.LOAD_ERROR);
+            }
         }
     }
 }

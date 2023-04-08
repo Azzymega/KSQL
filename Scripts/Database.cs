@@ -25,9 +25,16 @@ namespace KSQL.Scripts
         }
         public void SaveDatabase()
         {
-            SQLiteConnection saveStream = new SQLiteConnection("Data Source=" + loader.Save() + "; Version=3;");
-            saveStream.Open();
-            connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
+            try
+            {
+                SQLiteConnection saveStream = new SQLiteConnection("Data Source=" + loader.Save() + "; Version=3;");
+                saveStream.Open();
+                connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
+            }
+            catch 
+            {
+                ChangeStatus(EStatus.SAVE_ERROR);
+            }
         }
         public void LoadDatabase()
         {
@@ -73,9 +80,10 @@ namespace KSQL.Scripts
                 ChangeStatus(EStatus.LOAD_ERROR);
             }
         }
-        private void ChangeStatus(EStatus status)
+        public void ChangeStatus(EStatus status)
         {
             this.status=status;
+            MessageBox.Show(ExceptionTemplateCreator.ProduceExceptionText(status));
             SendQuery();
         }
         public void SendQuery()

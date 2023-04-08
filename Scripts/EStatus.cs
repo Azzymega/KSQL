@@ -12,6 +12,7 @@ namespace KSQL.Scripts
         LOAD_ERROR = 2,
         UNOWN_ERROR = 3,
         SUCCESS = 4,
+        SAVE_ERROR = 5,
     }
     public static class ExceptionTemplateCreator
     {
@@ -27,8 +28,10 @@ namespace KSQL.Scripts
                     return "ОШИБКА НЕИЗВЕСТНОГО ПРОИСХОЖДЕНИЯ. ПАМЯТЬ ПРОГРАММЫ ПОВРЕЖДЕНА 3.";
                 case EStatus.SUCCESS:
                     return "БАЗА ЗАГРУЖЕНА УСПЕШНО 4.";
+                case EStatus.SAVE_ERROR:
+                    return "ОШИБКА СОХРАНЕНИЯ ФАЙЛА 5.";
                 default:
-                    return "ЭЙФОРИЙНАЯ ТЕНЬ УНИЧТОЖЕНА. СПАСИБО Д.С. И М.С. (ОТЧАСТИ), ЛЕТО 2021";
+                    return "ЭЙФОРИЙНАЯ ТЕНЬ УНИЧТОЖЕНА. СПАСИБО Д.С. И М.О. (ОТЧАСТИ), ЛЕТО 2021";
             }
         }
     }

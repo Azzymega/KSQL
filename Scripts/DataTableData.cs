@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
 
 namespace KSQL.Scripts
 {
@@ -26,7 +27,15 @@ namespace KSQL.Scripts
         }
         public string ReturnTableName(int index)
         {
-            return tablesName[index];
+            try
+            {
+                return tablesName[index];
+            }
+            catch
+            {
+                MessageBox.Show(ExceptionTemplateCreator.ProduceExceptionText(EStatus.LOAD_ERROR)); // УЖАСНОЕ РЕШЕНИЕ, ЗАМЕНИТЬ!!11
+                return null;
+            }
         }
         public List<string> ReturnTableList()
         {
