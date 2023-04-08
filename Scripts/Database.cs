@@ -12,17 +12,13 @@ namespace KSQL.Scripts
     public class Database : ITransmitter
     {
         private DataReader reader;
-        private List<string> tablesName;
+        public DataTableData data;
         private DatabaseLoader loader;
         private List<IReciever> receivers;
         private string databaseName;
         private SQLiteConnection connection;
         private SQLiteCommand command;
-        private string currentStatus;
-        public string ReturnTableName(int index)
-        {
-            return tablesName[index];
-        }
+        private EStatus status;
         public string GetDatabaseName()
         {
             return databaseName;
@@ -38,7 +34,7 @@ namespace KSQL.Scripts
             databaseName = loader.Load();
             DatabaseInitialize();
             reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection));
-            tablesName = reader.Read();
+            data.tablesName = reader.Read();
         }
         public SQLiteConnection GetConnection()
         {
@@ -48,12 +44,13 @@ namespace KSQL.Scripts
         {
             receivers.Add(reciever);
         }
-        public string GetCurrentStatus()
+        public EStatus GetCurrentStatus()
         {
-            return currentStatus;
+            return status;
         }
         public Database(OpenFileDialog openDialog, SaveFileDialog saveDialog)
         {
+            data = new DataTableData();
             loader = new DatabaseLoader(openDialog,saveDialog);
             receivers = new List<IReciever>();
             connection = new SQLiteConnection();
@@ -69,23 +66,23 @@ namespace KSQL.Scripts
                 command.Connection = connection;
                 //command.CommandText = "CREATE TABLE IF NOT EXISTS Catalog (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, book TEXT)"; // Тест плагина
                 //command.ExecuteNonQuery();
-                ChangeStatus("База подключена");
+                ChangeStatus(EStatus.SUCCESS);
             }
             catch
             {
-                ChangeStatus("База отключена (Ошибка)");
+                ChangeStatus(EStatus.LOAD_ERROR);
             }
         }
-        private void ChangeStatus(string status)
+        private void ChangeStatus(EStatus status)
         {
-            currentStatus=status;
+            this.status=status;
             SendQuery();
         }
         public void SendQuery()
         {
             foreach (IReciever item in receivers)
             {
-                item.Recieve(currentStatus);
+                item.Recieve(ExceptionTemplateCreator.ProduceExceptionText(status));
             }
         }
     }

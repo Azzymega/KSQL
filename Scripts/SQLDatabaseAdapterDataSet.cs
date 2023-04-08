@@ -11,26 +11,25 @@ namespace KSQL.Scripts
     public class SQLDatabaseAdapterDataSet
     {
         private Database sqlDataBase;
-        private DataTable compDataBase;
         private SQLiteDataAdapter adapter;
         // private string query = "SELECT * FROM "; // ПРАВИТЬ!!!1 Сделать уже нормальный конструктор запросов 
         public DataTable ReturnDataTable()
         {
-            return compDataBase;
+            return sqlDataBase.data.ReturnTable();
         }
         public SQLDatabaseAdapterDataSet(Database database, DataTable dataTable)
         {
             sqlDataBase = database;
-            compDataBase = dataTable;
+            sqlDataBase.data.SetTable(dataTable);
         }
         public void UpdateConnection()
         {
-            adapter = new SQLiteDataAdapter("SELECT * FROM " + sqlDataBase.ReturnTableName(0), sqlDataBase.GetConnection());
+            adapter = new SQLiteDataAdapter("SELECT * FROM " + sqlDataBase.data.ReturnTableName(0), sqlDataBase.GetConnection());
         }
         public void Convert()
         {
-            compDataBase.Clear();
-            adapter.Fill(compDataBase);
+            sqlDataBase.data.ReturnTable().Clear();
+            adapter.Fill(sqlDataBase.data.ReturnTable());
         }
     }
 }

@@ -77,6 +77,8 @@
     <Compile Include="Scripts\Database.cs" />
     <Compile Include="Scripts\DatabaseLoader.cs" />
     <Compile Include="Scripts\DataReader.cs" />
+    <Compile Include="Scripts\DataTableData.cs" />
+    <Compile Include="Scripts\EStatus.cs" />
     <Compile Include="Scripts\IReciever.cs" />
     <Compile Include="Scripts\ITransmitter.cs" />
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
