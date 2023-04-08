@@ -13,6 +13,11 @@ namespace KSQL.Scripts
         private Database sqlDataBase;
         private SQLiteDataAdapter adapter;
         // private string query = "SELECT * FROM "; // ПРАВИТЬ!!!1 Сделать уже нормальный конструктор запросов 
+        public void CommandFormLaunch()
+        {
+            sqlDataBase.ExecuteCommand();
+            sqlDataBase.RefreshTable();
+        }
         public DataTable ReturnDataTable()
         {
             return sqlDataBase.data.ReturnTable();

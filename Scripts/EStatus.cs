@@ -13,6 +13,7 @@ namespace KSQL.Scripts
         UNOWN_ERROR = 3,
         SUCCESS = 4,
         SAVE_ERROR = 5,
+        COMMAND_ERROR = 6,
     }
     public static class ExceptionTemplateCreator
     {
@@ -30,6 +31,8 @@ namespace KSQL.Scripts
                     return "БАЗА ЗАГРУЖЕНА УСПЕШНО 4.";
                 case EStatus.SAVE_ERROR:
                     return "ОШИБКА СОХРАНЕНИЯ ФАЙЛА 5.";
+                case EStatus.COMMAND_ERROR:
+                    return "ОШИБКА ВЫПОЛНЕНИЯ КОМАНДЫ 6.";
                 default:
                     return "ЭЙФОРИЙНАЯ ТЕНЬ УНИЧТОЖЕНА. СПАСИБО Д.С. И М.О. (ОТЧАСТИ), ЛЕТО 2021";
             }

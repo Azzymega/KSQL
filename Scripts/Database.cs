@@ -23,6 +23,29 @@ namespace KSQL.Scripts
         {
             return databaseName;
         }
+        public void RefreshTable()
+        {
+            command.CommandText = "SELECT * FROM " + data.ReturnTableName(0);
+            command.ExecuteNonQuery();
+            command.CommandText = null;
+        }
+        public void ExecuteCommand()
+        {
+            EnterCommand form = new EnterCommand();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    command.CommandText = form.ReturnText();
+                    command.ExecuteNonQuery();
+                    command.CommandText = null;
+                }
+                catch
+                {
+                    ChangeStatus(EStatus.COMMAND_ERROR);
+                }
+            }
+        }
         public void SaveDatabase()
         {
             try

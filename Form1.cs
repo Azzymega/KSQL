@@ -46,5 +46,12 @@ namespace KSQL
         {
             database.SaveDatabase();
         }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            adapter.CommandFormLaunch();
+            adapter.Convert();
+            dataGridView1.DataSource = adapter.ReturnDataTable();
+        }
     }
 }
