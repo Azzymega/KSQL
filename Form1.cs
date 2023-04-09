@@ -14,6 +14,9 @@ namespace KSQL
 {
     public partial class Form1 : Form
     {
+        CreateTransaction transaction;
+        CreateColumn column;
+        CreateTable table;
         SQLConsole console;
         Database database;
         SQLDatabaseAdapterDataSet adapter;
@@ -31,6 +34,9 @@ namespace KSQL
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            table = new CreateTable();
+            column = new CreateColumn();
+            transaction = new CreateTransaction();
             database = new Database(openFileDialog1,saveFileDialog1,treeView1);
             adapter = new SQLDatabaseAdapterDataSet(database);
             console = new SQLConsole(textBox1,textBox2);
@@ -81,6 +87,66 @@ namespace KSQL
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             database.CreateDatabase();
+        }
+
+        private void button2_Click(object sender, EventArgs e) //РЕФАКТОР
+        {
+            if(table.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    database.CommandMake("CREATE TABLE "+table.ReturnText()+" (ID)");
+                    adapter.UpdateConnection(database.GetTableName());
+                    database.ReloadBase();
+                    adapter.Convert();
+                    SetDataSource();
+                    SetDataSource(adapter);
+                }
+                catch
+                {
+                    database.ChangeStatus(EStatus.COMMAND_ERROR);
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)//РЕФАКТОР
+        {
+            if(column.ShowDialog() == DialogResult.OK) 
+            {
+                try
+                {
+                    database.CommandMake("ALTER TABLE "+database.GetTableName()+" ADD "+column.ReturnColumnName());
+                    adapter.UpdateConnection(database.GetTableName());
+                    database.ReloadBase();
+                    adapter.Convert();
+                    SetDataSource();
+                    SetDataSource(adapter);
+                }
+                catch
+                {
+                    database.ChangeStatus(EStatus.COMMAND_ERROR);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)//РЕФАКТОР
+        {
+            if (transaction.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    database.CommandMake("INSERT INTO "+database.GetDatabaseName()+" VALUES "+transaction.ReturnText());
+                    adapter.UpdateConnection(database.GetTableName());
+                    database.ReloadBase();
+                    adapter.Convert();
+                    SetDataSource();
+                    SetDataSource(adapter);
+                }
+                catch
+                {
+                    database.ChangeStatus(EStatus.COMMAND_ERROR);
+                }
+            }
         }
     }
 }

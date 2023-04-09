@@ -24,10 +24,12 @@ namespace KSQL.Scripts
         }
         public void UpdateConnection()
         {
+            sqlDataBase.SetTableName(sqlDataBase.ReturnData().ReturnTableName(0));
             adapter = new SQLiteDataAdapter("SELECT * FROM " + sqlDataBase.ReturnData().ReturnTableName(0), sqlDataBase.GetConnection());
         }
         public void UpdateConnection(string baseName)
         {
+            sqlDataBase.SetTableName(baseName);
             adapter = new SQLiteDataAdapter("SELECT * FROM " + baseName, sqlDataBase.GetConnection());
         }
         public void Convert()
