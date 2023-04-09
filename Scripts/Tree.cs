@@ -19,10 +19,14 @@ namespace KSQL.Scripts
             _parentChildernNodes = new List<TreeNode>();
             _tree.Nodes.Add(_root);
         }
-        public void Initialize(List<string> tablesNames)
+        private void InternalCleaning()
         {
             _root.Nodes.Clear();
             _parentChildernNodes = new List<TreeNode>();
+        }
+        public void Initialize(List<string> tablesNames)
+        {
+            InternalCleaning();
             foreach (string table in tablesNames)
             {
                 _parentChildernNodes.Add(new TreeNode(table));
