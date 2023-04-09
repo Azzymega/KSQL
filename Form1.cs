@@ -69,7 +69,6 @@ namespace KSQL
         {
             SendCommand();
         }
-
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -77,7 +76,6 @@ namespace KSQL
                 SendCommand();
             }
         }
-
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             database.CreateDatabase();
