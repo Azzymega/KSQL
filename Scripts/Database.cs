@@ -91,6 +91,13 @@ namespace KSQL.Scripts
             data.tablesName = reader.Read();
             tree.Initialize(data.tablesName);
         }
+        public void ReloadBase()
+        {
+            DatabaseInitialize();
+            reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection), this);
+            data.tablesName = reader.Read();
+            tree.Initialize(data.tablesName);
+        }
         public SQLiteConnection GetConnection()
         {
             return connection;

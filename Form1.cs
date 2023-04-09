@@ -68,12 +68,14 @@ namespace KSQL
         private void button1_Click(object sender, EventArgs e)
         {
             SendCommand();
+            database.ReloadBase();
         }
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 SendCommand();
+                database.ReloadBase();
             }
         }
         private void toolStripButton1_Click(object sender, EventArgs e)
