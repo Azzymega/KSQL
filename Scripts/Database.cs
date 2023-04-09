@@ -87,7 +87,7 @@ namespace KSQL.Scripts
         {
             databaseName = loader.Load();
             DatabaseInitialize();
-            reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection));
+            reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection),this);
             data.tablesName = reader.Read();
             tree.Initialize(data.tablesName);
         }

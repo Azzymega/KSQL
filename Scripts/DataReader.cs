@@ -10,7 +10,7 @@ namespace KSQL.Scripts
     public class DataReader
     {
         SQLiteDataReader reader;
-        public DataReader(SQLiteCommand command)
+        public DataReader(SQLiteCommand command, Database dbase)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace KSQL.Scripts
             }
             catch
             {
-
+                dbase.ChangeStatus(EStatus.READ_ERROR);
             }
         }
         public List<string> Read()
