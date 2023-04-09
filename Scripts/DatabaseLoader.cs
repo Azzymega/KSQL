@@ -20,7 +20,7 @@ namespace KSQL.Scripts
             this.saveDialog = saveDialog;
             saveDialog.AddExtension = true;
             saveDialog.DefaultExt = "db";
-            saveDialog.Title = "Загрузка базы SQLite";
+            saveDialog.Title = "Сохранение базы SQLite";
             saveDialog.Filter = "Файлы баз данных SQLite (*.db)|*.db";
         }
         public string Save()
