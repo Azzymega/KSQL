@@ -28,12 +28,6 @@ namespace KSQL.Scripts
         {
             return data;
         }
-        public void RefreshTable() // УЖАС
-        {
-            command.CommandText = "SELECT * FROM " + data.ReturnTableName(0);
-            command.ExecuteNonQuery();
-            command.CommandText = null;
-        }
         public void CommandMake(string com)
         {
             command.CommandText = com;
