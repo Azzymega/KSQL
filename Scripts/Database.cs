@@ -28,7 +28,7 @@ namespace KSQL.Scripts
         {
             return data;
         }
-        public void RefreshTable()
+        public void RefreshTable() // УЖАС
         {
             command.CommandText = "SELECT * FROM " + data.ReturnTableName(0);
             command.ExecuteNonQuery();
@@ -47,9 +47,7 @@ namespace KSQL.Scripts
             {
                 try
                 {
-                    command.CommandText = form.ReturnText();
-                    command.ExecuteNonQuery();
-                    command.CommandText = null;
+                    CommandMake(form.ReturnText());
                 }
                 catch
                 {
@@ -57,11 +55,15 @@ namespace KSQL.Scripts
                 }
             }
         }
+        private SQLiteConnection ConnectionInit(string pathSource)
+        {
+            return new SQLiteConnection("Data Source=" + pathSource + "; Version=3;");
+        }
         public void SaveDatabase()
         {
             try
             {
-                SQLiteConnection saveStream = new SQLiteConnection("Data Source=" + loader.Save() + "; Version=3;");
+                SQLiteConnection saveStream = ConnectionInit(loader.Save());
                 saveStream.Open();
                 connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
             }
@@ -114,7 +116,7 @@ namespace KSQL.Scripts
         {
             try
             {
-                connection = new SQLiteConnection("Data Source = "+databaseName+";Version=3;");
+                connection = ConnectionInit(databaseName);
                 connection.Open();
                 command.Connection = connection;              
                 ChangeStatus(EStatus.SUCCESS);
