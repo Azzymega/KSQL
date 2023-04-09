@@ -34,6 +34,12 @@ namespace KSQL.Scripts
             command.ExecuteNonQuery();
             command.CommandText = null;
         }
+        public void CommandMake(string com)
+        {
+            command.CommandText = com;
+            command.ExecuteNonQuery();
+            command.CommandText = null;
+        }
         public void ExecuteCommand()
         {
             EnterCommand form = new EnterCommand();

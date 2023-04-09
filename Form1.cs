@@ -14,6 +14,7 @@ namespace KSQL
 {
     public partial class Form1 : Form
     {
+        SQLConsole console;
         Database database;
         SQLDatabaseAdapterDataSet adapter;
         public Form1()
@@ -25,6 +26,8 @@ namespace KSQL
             database = new Database(openFileDialog1,saveFileDialog1,treeView1);
             adapter = new SQLDatabaseAdapterDataSet(database);
             database.AppendReceiver(new StatusBarStatusController(toolStripLabel1));
+            console = new SQLConsole(textBox1,textBox2);
+            database.AppendReceiver(console);
         }
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
@@ -37,12 +40,6 @@ namespace KSQL
         {
             database.SaveDatabase();
         }
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            adapter.CommandFormLaunch();
-            adapter.Convert();
-            dataGridView1.DataSource = adapter.ReturnDataTable();
-        }
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Text != "Таблицы")
@@ -53,6 +50,13 @@ namespace KSQL
                 dataGridView1.DataSource = null;
                 dataGridView1.DataSource = adapter.ReturnDataTable();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            console.SendCommand(database);
+            adapter.Convert();
+            dataGridView1.DataSource = adapter.ReturnDataTable();
         }
     }
 }
