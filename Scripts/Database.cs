@@ -11,6 +11,7 @@ namespace KSQL.Scripts
 {
     public class Database : ITransmitter
     {
+        private string tableName;
         private Tree tree;
         private DataReader reader;
         private DataTableData data;
@@ -20,6 +21,14 @@ namespace KSQL.Scripts
         private SQLiteConnection connection;
         private SQLiteCommand command;
         private EStatus status;
+        public void SetTableName(string table)
+        {
+            tableName = table;
+        }
+        public string GetTableName()
+        {
+            return tableName;
+        }
         public string GetDatabaseName()
         {
             return databaseName;
@@ -33,21 +42,6 @@ namespace KSQL.Scripts
             command.CommandText = com;
             command.ExecuteNonQuery();
             command.CommandText = null;
-        }
-        public void ExecuteCommand()
-        {
-            EnterCommand form = new EnterCommand();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    CommandMake(form.ReturnText());
-                }
-                catch
-                {
-                    ChangeStatus(EStatus.COMMAND_ERROR);
-                }
-            }
         }
         private SQLiteConnection ConnectionInit(string pathSource)
         {

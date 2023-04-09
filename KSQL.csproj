@@ -69,6 +69,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateColumn.Designer.cs">
+      <DependentUpon>CreateColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTable.Designer.cs">
+      <DependentUpon>CreateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTransaction.Designer.cs">
+      <DependentUpon>CreateTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnterCommand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +112,15 @@
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
     <Compile Include="Scripts\StatusBarStatusController.cs" />
     <Compile Include="Scripts\Tree.cs" />
+    <EmbeddedResource Include="CreateColumn.resx">
+      <DependentUpon>CreateColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTable.resx">
+      <DependentUpon>CreateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTransaction.resx">
+      <DependentUpon>CreateTransaction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EnterCommand.resx">
       <DependentUpon>EnterCommand.cs</DependentUpon>
     </EmbeddedResource>
