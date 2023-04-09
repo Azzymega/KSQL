@@ -21,12 +21,20 @@ namespace KSQL
         {
             InitializeComponent();
         }
+        public void SetDataSource(SQLDatabaseAdapterDataSet adapter)
+        {
+            dataGridView1.DataSource = adapter.ReturnDataTable();
+        }
+        public void SetDataSource()
+        {
+            dataGridView1.DataSource = null;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             database = new Database(openFileDialog1,saveFileDialog1,treeView1);
             adapter = new SQLDatabaseAdapterDataSet(database);
-            database.AppendReceiver(new StatusBarStatusController(toolStripLabel1));
             console = new SQLConsole(textBox1,textBox2);
+            database.AppendReceiver(new StatusBarStatusController(toolStripLabel1));
             database.AppendReceiver(console);
         }
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -34,7 +42,7 @@ namespace KSQL
             database.LoadDatabase();
             adapter.UpdateConnection();
             adapter.Convert();
-            dataGridView1.DataSource = adapter.ReturnDataTable();
+            SetDataSource(adapter);
         }
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
@@ -47,25 +55,26 @@ namespace KSQL
                 database.DatabaseInitialize();
                 adapter.UpdateConnection(e.Node.Text);
                 adapter.Convert();
-                dataGridView1.DataSource = null;
-                dataGridView1.DataSource = adapter.ReturnDataTable();
+                SetDataSource();
+                SetDataSource(adapter);
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void SendCommand()
         {
             console.SendCommand(database);
             adapter.Convert();
-            dataGridView1.DataSource = adapter.ReturnDataTable();
+            SetDataSource(adapter);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SendCommand();
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                console.SendCommand(database);
-                adapter.Convert();
-                dataGridView1.DataSource = adapter.ReturnDataTable();
+                SendCommand();
             }
         }
 
