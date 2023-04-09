@@ -20,11 +20,6 @@ namespace KSQL
         {
             InitializeComponent();
         }
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            adapter.Convert();
-            dataGridView1.DataSource = adapter.ReturnDataTable();
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
             database = new Database(openFileDialog1,saveFileDialog1,treeView1);
@@ -35,6 +30,8 @@ namespace KSQL
         {
             database.LoadDatabase();
             adapter.UpdateConnection();
+            adapter.Convert();
+            dataGridView1.DataSource = adapter.ReturnDataTable();
         }
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
