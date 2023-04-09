@@ -70,6 +70,17 @@ namespace KSQL.Scripts
                 ChangeStatus(EStatus.SAVE_ERROR);
             }
         }
+        public void CreateDatabase()
+        {
+            try
+            {
+                SQLiteConnection.CreateFile(loader.Save());
+            }
+            catch
+            {
+                ChangeStatus(EStatus.SAVE_ERROR);
+            }
+        }
         public void LoadDatabase()
         {
             databaseName = loader.Load();
