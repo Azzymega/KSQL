@@ -27,7 +27,7 @@ namespace KSQL
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            database = new Database(openFileDialog1,saveFileDialog1);
+            database = new Database(openFileDialog1,saveFileDialog1,treeView1);
             adapter = new SQLDatabaseAdapterDataSet(database);
             database.AppendReceiver(new StatusBarStatusController(toolStripLabel1));
         }
@@ -36,22 +36,26 @@ namespace KSQL
             database.LoadDatabase();
             adapter.UpdateConnection();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             database.SaveDatabase();
         }
-
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
             adapter.CommandFormLaunch();
             adapter.Convert();
             dataGridView1.DataSource = adapter.ReturnDataTable();
+        }
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Text != "Таблицы")
+            {
+                database.DatabaseInitialize();
+                adapter.UpdateConnection(e.Node.Text);
+                adapter.Convert();
+                dataGridView1.DataSource = null;
+                dataGridView1.DataSource = adapter.ReturnDataTable();
+            }
         }
     }
 }

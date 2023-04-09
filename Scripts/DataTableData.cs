@@ -25,6 +25,12 @@ namespace KSQL.Scripts
         {
             return dataTable;
         }
+        public void Clear()
+        {
+            dataTable.Clear();
+            dataTable.Rows.Clear();
+            dataTable.Columns.Clear();
+        }
         public string ReturnTableName(int index)
         {
             try

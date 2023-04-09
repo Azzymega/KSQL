@@ -92,6 +92,7 @@
     <Compile Include="Scripts\ITransmitter.cs" />
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
     <Compile Include="Scripts\StatusBarStatusController.cs" />
+    <Compile Include="Scripts\Tree.cs" />
     <EmbeddedResource Include="EnterCommand.resx">
       <DependentUpon>EnterCommand.cs</DependentUpon>
     </EmbeddedResource>

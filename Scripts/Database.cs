@@ -11,8 +11,9 @@ namespace KSQL.Scripts
 {
     public class Database : ITransmitter
     {
+        private Tree tree;
         private DataReader reader;
-        public DataTableData data;
+        private DataTableData data;
         private DatabaseLoader loader;
         private List<IReciever> receivers;
         private string databaseName;
@@ -22,6 +23,10 @@ namespace KSQL.Scripts
         public string GetDatabaseName()
         {
             return databaseName;
+        }
+        public DataTableData ReturnData()
+        {
+            return data;
         }
         public void RefreshTable()
         {
@@ -65,6 +70,7 @@ namespace KSQL.Scripts
             DatabaseInitialize();
             reader = new DataReader(new SQLiteCommand("SELECT * FROM sqlite_master", connection));
             data.tablesName = reader.Read();
+            tree.Initialize(data.tablesName);
         }
         public SQLiteConnection GetConnection()
         {
@@ -78,24 +84,22 @@ namespace KSQL.Scripts
         {
             return status;
         }
-        public Database(OpenFileDialog openDialog, SaveFileDialog saveDialog)
+        public Database(OpenFileDialog openDialog, SaveFileDialog saveDialog, TreeView treeView)
         {
+            tree = new Tree(treeView);
             data = new DataTableData();
             loader = new DatabaseLoader(openDialog,saveDialog);
             receivers = new List<IReciever>();
             connection = new SQLiteConnection();
             command = new SQLiteCommand();
         }
-        private void DatabaseInitialize()
+        public void DatabaseInitialize()
         {
             try
             {
-                //SQLiteConnection.CreateFile(databaseName);
                 connection = new SQLiteConnection("Data Source = "+databaseName+";Version=3;");
                 connection.Open();
-                command.Connection = connection;
-                //command.CommandText = "CREATE TABLE IF NOT EXISTS Catalog (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, book TEXT)"; // Тест плагина
-                //command.ExecuteNonQuery();
+                command.Connection = connection;              
                 ChangeStatus(EStatus.SUCCESS);
             }
             catch
