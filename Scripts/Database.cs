@@ -52,7 +52,7 @@ namespace KSQL.Scripts
             try
             {
                 SQLiteConnection saveStream = ConnectionInit(loader.Save());
-                saveStream.Open();
+                saveStream.OpenAsync().Wait();
                 connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
             }
             catch 
