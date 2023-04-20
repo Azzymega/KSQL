@@ -16,6 +16,7 @@ namespace KSQL.Scripts
         private DataReader reader;
         private DataTableData data;
         private DatabaseLoader loader;
+        private DatabaseSaver saver;
         private List<IReciever> receivers;
         private string databaseName;
         private SQLiteConnection connection;
@@ -52,7 +53,7 @@ namespace KSQL.Scripts
             try
             {
                 SQLiteConnection saveStream = ConnectionInit(loader.Save());
-                saveStream.Open();
+                saveStream.OpenAsync().Wait();
                 connection.BackupDatabase(saveStream,"main", "main", -1, null, 0);
             }
             catch 
@@ -64,7 +65,7 @@ namespace KSQL.Scripts
         {
             try
             {
-                SQLiteConnection.CreateFile(loader.Save());
+                SQLiteConnection.CreateFile(saver.Save());
             }
             catch
             {
@@ -102,7 +103,8 @@ namespace KSQL.Scripts
         {
             tree = new Tree(treeView);
             data = new DataTableData();
-            loader = new DatabaseLoader(openDialog,saveDialog);
+            loader = new DatabaseLoader(openDialog);
+            saver = new DatabaseSaver(saveDialog);
             receivers = new List<IReciever>();
             connection = new SQLiteConnection();
             command = new SQLiteCommand();

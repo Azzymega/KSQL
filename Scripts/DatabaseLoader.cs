@@ -10,26 +10,12 @@ namespace KSQL.Scripts
 {
     public class DatabaseLoader
     {
-        private OpenFileDialog openDialog;
-        private SaveFileDialog saveDialog; 
-        public DatabaseLoader(OpenFileDialog openDialog, SaveFileDialog saveDialog)
+        private OpenFileDialog openDialog; 
+        public DatabaseLoader(OpenFileDialog openDialog)
         {
             this.openDialog = openDialog;
             openDialog.Title = "Загрузка базы SQLite";
             openDialog.Filter = "Файлы баз данных SQLite (*.db)|*.db";
-            this.saveDialog = saveDialog;
-            saveDialog.AddExtension = true;
-            saveDialog.DefaultExt = "db";
-            saveDialog.Title = "Сохранение базы SQLite";
-            saveDialog.Filter = "Файлы баз данных SQLite (*.db)|*.db";
-        }
-        public string Save()
-        {
-            if (saveDialog.ShowDialog() == DialogResult.OK)
-            {
-                return saveDialog.FileName;
-            }
-            return null;
         }
         public string Load()
         {
