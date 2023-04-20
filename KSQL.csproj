@@ -109,6 +109,7 @@
     <Compile Include="Scripts\EStatus.cs" />
     <Compile Include="Scripts\IReciever.cs" />
     <Compile Include="Scripts\ITransmitter.cs" />
+    <Compile Include="Scripts\Qeury.cs" />
     <Compile Include="Scripts\SQLConsole.cs" />
     <Compile Include="Scripts\SQLDatabaseAdapterDataSet.cs" />
     <Compile Include="Scripts\StatusBarStatusController.cs" />
