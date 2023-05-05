@@ -39,7 +39,7 @@ namespace KSQL.Scripts
             }
             catch
             {
-                MessageBox.Show(ExceptionTemplateCreator.ProduceExceptionText(EStatus.LOAD_ERROR)); // УЖАСНОЕ РЕШЕНИЕ, ЗАМЕНИТЬ!!11
+                MessageBox.Show(ExceptionTemplateCreator.ProduceExceptionText(EStatus.LOAD_ERROR));
                 return null;
             }
         }

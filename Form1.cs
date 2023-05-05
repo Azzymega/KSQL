@@ -32,6 +32,14 @@ namespace KSQL
         {
             dataGridView1.DataSource = null;
         }
+        public void ReloadDataSource()
+        {
+            adapter.UpdateConnection(database.GetTableName());
+            database.ReloadBase();
+            adapter.Convert();
+            SetDataSource();
+            SetDataSource(adapter);
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             table = new CreateTable();
@@ -89,18 +97,14 @@ namespace KSQL
             database.CreateDatabase();
         }
 
-        private void button2_Click(object sender, EventArgs e) //РЕФАКТОР
+        private void button2_Click(object sender, EventArgs e) 
         {
             if(table.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    database.CommandMake("CREATE TABLE "+table.ReturnText()+" (ID)");
-                    adapter.UpdateConnection(database.GetTableName());
-                    database.ReloadBase();
-                    adapter.Convert();
-                    SetDataSource();
-                    SetDataSource(adapter);
+                    database.CommandMake(Qeury.FormCreateTableCommand(table));
+                    ReloadDataSource();
                 }
                 catch
                 {
@@ -109,18 +113,14 @@ namespace KSQL
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)//РЕФАКТОР
+        private void button4_Click(object sender, EventArgs e)
         {
             if(column.ShowDialog() == DialogResult.OK) 
             {
                 try
                 {
-                    database.CommandMake("ALTER TABLE "+database.GetTableName()+" ADD "+column.ReturnColumnName());
-                    adapter.UpdateConnection(database.GetTableName());
-                    database.ReloadBase();
-                    adapter.Convert();
-                    SetDataSource();
-                    SetDataSource(adapter);
+                    database.CommandMake(Qeury.FormAddColumnCommand(database,column));
+                    ReloadDataSource();
                 }
                 catch
                 {
@@ -129,18 +129,14 @@ namespace KSQL
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)//РЕФАКТОР
+        private void button3_Click(object sender, EventArgs e)
         {
             if (transaction.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    database.CommandMake("INSERT INTO "+database.GetDatabaseName()+" VALUES "+transaction.ReturnText());
-                    adapter.UpdateConnection(database.GetTableName());
-                    database.ReloadBase();
-                    adapter.Convert();
-                    SetDataSource();
-                    SetDataSource(adapter);
+                    database.CommandMake(Qeury.FormAddValuesCommand(database,transaction));
+                    ReloadDataSource();
                 }
                 catch
                 {
